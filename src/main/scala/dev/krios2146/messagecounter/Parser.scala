@@ -22,7 +22,9 @@ def main(): Unit = {
     .toList
     .sortBy(-_._2)
     .take(50)
-    .foreach((user, messages) => println(s"$user - $messages"))
+    .zipWithIndex
+    .map { case ((user, messageCount), index) => (index + 1, user, messageCount) }
+    .foreach((id, user, messages) => println(s"$id. $user - $messages"))
 }
 
 def mapToTelegramData(messageValue: Value): TelegramMessage = {
